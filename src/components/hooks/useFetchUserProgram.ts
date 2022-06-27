@@ -3,14 +3,15 @@ import { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase.config";
 
 import Cookies from "universal-cookie";
+import { IProgramData } from "../../types/types";
 
 const useFetchUserProgram = () => {
   const cookies = new Cookies();
 
   const usersProgramCollectionRef = collection(db, "usersProgramCollection");
-  const [data, setData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState<IProgramData | null>(null);
+  const [isLoading, setIsLoading] = useState<Boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const localUserAuth = cookies.get("userAuthData");
@@ -24,7 +25,12 @@ const useFetchUserProgram = () => {
         );
 
         const snapshot = await getDocs(queryData);
-        setData(...snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+        const docs = snapshot.docs.map(doc => ({
+          ...doc.data(),
+          id: doc.id,
+        }))[0] as IProgramData;
+
+        setData(docs);
 
         setIsLoading(false);
       } catch (error) {

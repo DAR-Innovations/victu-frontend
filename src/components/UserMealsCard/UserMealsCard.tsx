@@ -6,9 +6,9 @@ import "./userMealsCardStyle.css";
 
 const UserMealsCard = () => {
   const { data, isLoading } = useFetchMealsData();
-  
-  if(isLoading) { 
-    return <SkeletonExerciseCard/>
+
+  if (isLoading) {
+    return <SkeletonExerciseCard />;
   }
 
   return (

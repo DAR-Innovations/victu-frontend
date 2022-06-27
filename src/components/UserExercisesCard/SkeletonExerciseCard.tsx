@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const SkeletonExerciseCard = ({ props }) => {
+const SkeletonExerciseCard = () => {
   return (
     <ContentLoader
       className="move"
@@ -9,7 +9,6 @@ const SkeletonExerciseCard = ({ props }) => {
       viewBox="0 0 362 210"
       backgroundColor="#7276d7"
       foregroundColor="#aeb0dc"
-      {...props}
     >
       <rect x="0" y="0" rx="15" ry="15" width="90" height="25" />
       <rect x="0" y="45" rx="15" ry="15" width="240" height="110" />

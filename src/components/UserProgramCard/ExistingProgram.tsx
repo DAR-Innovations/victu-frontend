@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AdjustIcon from "../../assets/adjustIcon.svg";
 
-const ExistingProgram = ({ dietProgram }) => {
-  const [userDietProgram, setUserDietProgram] = useState();
+interface ExistingProgramProps {
+  dietProgram: string;
+}
+
+const ExistingProgram: FC<ExistingProgramProps> = ({ dietProgram }) => {
+  const [userDietProgram, setUserDietProgram] = useState<string>();
 
   useEffect(() => {
     function handleDietProgram() {
@@ -30,7 +34,9 @@ const ExistingProgram = ({ dietProgram }) => {
     <div className="program">
       <div className="program-title">
         <div className="program-name">{userDietProgram || "Loading.."}</div>
-        <div className="program-subtitle">You can adjust your diet program </div>
+        <div className="program-subtitle">
+          You can adjust your diet program{" "}
+        </div>
       </div>
 
       <Link to="/adjust-program" className="adjust-create">

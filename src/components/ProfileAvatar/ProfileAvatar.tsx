@@ -6,11 +6,13 @@ import SkeletonProfile from "./SkeletonProfile";
 
 const ProfileAvatar = () => {
   const { data, isLoading } = useFetchUserData();
-  const [handledAvatar, setHandledAvatar] = useState();
+  const [handledAvatar, setHandledAvatar] = useState<string>();
 
   useEffect(() => {
-    const firstLetterOfName = data?.userFirstName.split("")[0];
-    setHandledAvatar(firstLetterOfName?.toUpperCase());
+    if (data) {
+      const firstLetterOfName = data!.userFirstName.split("")[0];
+      setHandledAvatar(firstLetterOfName!.toUpperCase());
+    }
   }, [data]);
 
   const userFullName = `${data?.userFirstName} ${data?.userLastName}`;

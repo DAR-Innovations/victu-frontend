@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useFetchUserData from "../hooks/useFetchUserData";
 import SkeletonHomeHeader from "./SkeletonHomeHeader";
 
-const HomeHeader = () => {
+const HomeHeader:FC = () => {
   const { data, isLoading } = useFetchUserData();
-  const [handledAvatar, setHandledAvatar] = useState();
+  const [handledAvatar, setHandledAvatar] = useState<string>();
 
   useEffect(() => {
-    const firstLetterOfName = data?.userFirstName?.split("")[0];
-    setHandledAvatar(firstLetterOfName?.toUpperCase());
+    if (data) {
+      const firstLetterOfName = data.userFirstName.split("")[0];
+      setHandledAvatar(firstLetterOfName.toUpperCase());
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 

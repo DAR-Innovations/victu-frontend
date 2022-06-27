@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const SkeletonHomeHeader = props => (
+const SkeletonHomeHeader = () => (
   <ContentLoader
     className="home-header"
     speed={2}
@@ -10,7 +10,6 @@ const SkeletonHomeHeader = props => (
     viewBox="0 0 362 70"
     backgroundColor="#7276d7"
     foregroundColor="#aeb0dc"
-    {...props}
   >
     <rect x="0" y="-1" rx="10" ry="10" width="202" height="44" />
     <circle cx="330" cy="33" r="26" />

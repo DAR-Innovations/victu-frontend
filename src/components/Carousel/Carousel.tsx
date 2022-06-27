@@ -1,15 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { motion } from "framer-motion";
 import "./carouselStyle.css";
 import CarouselItem from "./CarouselItem/CarouselItem";
+import { IExerciseData, IMealData } from "../../types/types";
 
-const Carousel = ({ contentData }) => {
+interface CarouselProps {
+  contentData: IExerciseData[] | IMealData[] | null;
+}
+
+const Carousel: FC<CarouselProps> = ({ contentData }) => {
   const [width, setWidth] = useState(0);
-  const carousel = useRef();
+  const carousel = useRef() as MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
     const currentCarousel = carousel.current;
-    setWidth(currentCarousel.scrollWidth - currentCarousel.offsetWidth);
+    setWidth(currentCarousel!.scrollWidth - currentCarousel!.offsetWidth);
   }, [contentData]);
 
   return (
@@ -24,7 +35,7 @@ const Carousel = ({ contentData }) => {
         className="carousel-inner"
       >
         {contentData?.map(content => (
-          <CarouselItem key={content?.id} content={content} />
+          <CarouselItem key={content.id} content={content} />
         ))}
       </motion.div>
     </motion.div>

@@ -8,14 +8,14 @@ import SkeletonProgramCard from "./SkeletonProgramCard";
 const UserProgramCard = () => {
   const { data, isLoading } = useFetchUserProgram();
 
-  if (isLoading ) {
+  if (isLoading) {
     return <SkeletonProgramCard />;
   }
 
   return (
     <>
       {data && !isLoading ? (
-        <ExistingProgram dietProgram={data?.userDietProgram} />
+        <ExistingProgram dietProgram={data.userDietProgram} />
       ) : (
         <NoProgram />
       )}
