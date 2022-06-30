@@ -5,19 +5,22 @@ import dropDownIcon from "../../assets/dropDownArrow.svg";
 import { db } from "../../firebase/firebase.config";
 import "./createNewProgramFieldsStyle.css";
 
+import { IProgramData } from "../../types/types";
+
 const AdjustProgramFields = () => {
-  const [userAge, setUserAge] = useState();
-  const [userWeight, setUserWeight] = useState();
-  const [userHeight, setUserHeight] = useState();
-  const [userExerciseLevel, setUserExerciseLevel] = useState();
-  const [userDietProgram, setUserDietProgram] = useState();
-  const [userGender, setUserGender] = useState();
-  const [documentId, setDocumentId] = useState();
+  const [userAge, setUserAge] = useState("");
+  const [userWeight, setUserWeight] = useState("");
+  const [userHeight, setUserHeight] = useState("");
+  const [userExerciseLevel, setUserExerciseLevel] = useState("");
+  const [userDietProgram, setUserDietProgram] = useState("");
+  const [userGender, setUserGender] = useState("");
+  const [documentId, setDocumentId] = useState("");
   const pageNavigation = useNavigate();
 
   useEffect(() => {
-    const userLocalProgramData =
-      JSON.parse(localStorage.getItem("userProgramDataLocal")) || {};
+    const localData = localStorage.getItem("userProgramDataLocal");
+    const userLocalProgramData = JSON.parse(localData || "") as IProgramData;
+
     setUserAge(userLocalProgramData?.userAge);
     setUserWeight(userLocalProgramData?.userWeight);
     setUserHeight(userLocalProgramData?.userHeight);
@@ -27,7 +30,20 @@ const AdjustProgramFields = () => {
     setDocumentId(userLocalProgramData?.id);
   }, []);
 
+  const isValid = [
+    userAge,
+    userWeight,
+    userHeight,
+    userExerciseLevel,
+    userDietProgram,
+    userGender,
+  ].every(item => item !== "");
+
   async function adjustProgramInDB() {
+    if (!isValid) {
+      return alert("Please fill out all missing fields!");
+    }
+    
     const userDoc = doc(db, "usersProgramCollection", documentId);
     const adjustedFields = {
       userAge: userAge,
@@ -63,7 +79,7 @@ const AdjustProgramFields = () => {
           <div className="newProgram-input-title">Age:</div>
           <input
             type="text"
-            placeholder={`${userAge}  Years`}
+            value={userAge}
             className="newProgram-input-field"
             onChange={e => setUserAge(e.target.value)}
           />
@@ -72,7 +88,7 @@ const AdjustProgramFields = () => {
           <div className="newProgram-input-title">Current weight:</div>
           <input
             type="text"
-            placeholder={`${userWeight}   Kilos`}
+            value={userWeight}
             className="newProgram-input-field"
             onChange={e => setUserWeight(e.target.value)}
           />
@@ -81,7 +97,7 @@ const AdjustProgramFields = () => {
           <div className="newProgram-input-title">Height:</div>
           <input
             type="text"
-            placeholder={`${userHeight}   Cantimiters`}
+            value={userHeight}
             className="newProgram-input-field"
             onChange={e => setUserHeight(e.target.value)}
           />

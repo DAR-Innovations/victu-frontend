@@ -1,8 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import { motion } from "framer-motion";
 import "./carouselItemStyle.css";
+import { IExerciseData, IMealData } from "../../../types/types";
 
-const CarouselItem = ({ content }) => {
+interface CarouselItemProps {
+  content: IExerciseData | IMealData | null;
+}
+
+const CarouselItem: FC<CarouselItemProps> = ({ content }) => {
   const src = `https://www.youtube.com/embed/${content?.videoId}?controls=1`;
 
   return (
@@ -11,8 +16,8 @@ const CarouselItem = ({ content }) => {
         <iframe
           className="carousel-content-video"
           src={src}
-          title="YouTube video player"
-          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          title={content?.title}
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope"
           allowFullScreen
         ></iframe>
       </div>

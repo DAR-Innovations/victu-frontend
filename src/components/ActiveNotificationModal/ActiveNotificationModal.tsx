@@ -1,7 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import "./activeNotifStyle.css";
 
-const ActiveNotificationModal = ({
+interface ActiveNotificationModalProps {
+  title: string;
+  fullBody: string;
+  isModalActive: Boolean;
+  setIsModalActive: (value: boolean) => void;
+}
+
+const ActiveNotificationModal: FC<ActiveNotificationModalProps> = ({
   title,
   fullBody,
   isModalActive,

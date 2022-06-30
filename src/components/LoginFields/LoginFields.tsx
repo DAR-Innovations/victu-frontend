@@ -7,18 +7,18 @@ import InputFieldModule from "../InputFieldModule/InputFieldModule";
 import UserIcon from "../../assets/userIcon.svg";
 import PasswordIcon from "../../assets/passwordIcon.svg";
 
-import setAuthCookies from "../helpers/setAuthCookies";
+import {setAuthCookies} from "../helpers/setAuthCookies";
 
 const EmailAndPasswordFields = () => {
-  const [loginEmail, setLoginEmail] = useState();
-  const [loginPassword, setLoginPassword] = useState();
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const pageNavigation = useNavigate();
 
   async function loginAccount() {
     try {
       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       onAuthStateChanged(auth, currentUser => {
-        setAuthCookies({ isAuth: true, uid: currentUser.uid });
+        setAuthCookies({ isAuth: true, uid: currentUser!.uid });
         pageNavigation("../home");
       });
     } catch (err) {

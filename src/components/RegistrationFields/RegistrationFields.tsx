@@ -10,14 +10,14 @@ import InputFieldModule from "../InputFieldModule/InputFieldModule";
 import UserIcon from "../../assets/userIcon.svg";
 import PasswordIcon from "../../assets/passwordIcon.svg";
 import EmailIcon from "../../assets/emailIcon.svg";
-import setAuthCookies from "../helpers/setAuthCookies";
+import { setAuthCookies } from "../helpers/setAuthCookies";
 
 const RegistrationFields = () => {
-  const [registerEmail, setRegisterEmail] = useState();
-  const [registerPassword, setRegisterPassword] = useState();
-  const [registerConfirmPassword, setRegisterConfirmPassword] = useState();
-  const [registerFirstName, setRegisterFirstName] = useState();
-  const [registerLastName, setRegisterLastName] = useState();
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
+  const [registerFirstName, setRegisterFirstName] = useState("");
+  const [registerLastName, setRegisterLastName] = useState("");
   const usersDataCollectionRef = collection(db, "usersDataCollection");
   const pageNavigation = useNavigate();
 
@@ -34,7 +34,7 @@ const RegistrationFields = () => {
       }
 
       onAuthStateChanged(auth, currentUser => {
-        setAuthCookies({ isAuth: true, uid: currentUser.uid });
+        setAuthCookies({ isAuth: true, uid: currentUser!.uid });
         addDoc(usersDataCollectionRef, {
           userFirstName: registerFirstName,
           userLastName: registerLastName,

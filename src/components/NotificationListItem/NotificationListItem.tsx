@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import Arrow from "../../assets/notifArrow.png";
 import ActiveNotificationModal from "../ActiveNotificationModal/ActiveNotificationModal";
 
-const NotificationListItem = ({ notificationData }) => {
+import { INotificationData } from "../../types/types";
+
+interface NotificationListItemProps {
+  notificationData: INotificationData;
+}
+
+const NotificationListItem: FC<NotificationListItemProps> = ({
+  notificationData,
+}) => {
   const [isModalActive, setIsModalActive] = useState(false);
   const [title, shortBody, fullBody] = [
     notificationData.notificationTitle,
